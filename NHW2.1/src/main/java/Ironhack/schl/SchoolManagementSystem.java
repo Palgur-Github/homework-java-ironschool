@@ -13,24 +13,32 @@ public class SchoolManagementSystem {
         students = new HashMap<>();
     }
 
-    public void enrollStudent(String studentId, String courseId) throws Exception{
-        Student student = students.get(studentId);
-        Course course = courses.get(courseId);
-        if (student != null && course != null) {
-            student.setCourse(course);
-            course.setMoneyEarned(course.getMoneyEarned() + course.getPrice());
-        } else {
-            System.out.println("Invalid student ID or course ID");
+    public void enrollStudent(String studentId, String courseId) {
+        try {
+            Student student = students.get(studentId);
+            Course course = courses.get(courseId);
+            if (student != null && course != null) {
+                student.setCourse(course);
+                course.setMoneyEarned(course.getMoneyEarned() + course.getPrice());
+            } else {
+                System.out.println("Invalid student ID or course ID");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Student or course not found");
         }
     }
 
-    public void assignTeacher(String teacherId, String courseId) throws Exception {
-        Teacher teacher = teachers.get(teacherId);
-        Course course = courses.get(courseId);
-        if (teacher != null && course != null) {
-            course.setTeacher(teacher);
-        } else {
-            System.out.println("Invalid teacher ID or course ID");
+    public void assignTeacher(String teacherId, String courseId) {
+        try{
+            Teacher teacher = teachers.get(teacherId);
+            Course course = courses.get(courseId);
+            if (teacher != null && course != null) {
+                course.setTeacher(teacher);
+            } else {
+                System.out.println("Invalid teacher ID or course ID");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Student or course not found");
         }
     }
 
@@ -40,11 +48,15 @@ public class SchoolManagementSystem {
         }
     }
 
-    public void lookupCourse(String courseId) throws Exception {
-        Course course = courses.get(courseId);
-        if (course != null) {
-            System.out.println(course);
-        } else {
+    public void lookupCourse(String courseId){
+        try {
+            Course course = courses.get(courseId);
+            if (course != null) {
+                System.out.println(course);
+            } else {
+                System.out.println("Course not found");
+            }
+        } catch (NoSuchElementException e) {
             System.out.println("Course not found");
         }
     }
@@ -55,11 +67,15 @@ public class SchoolManagementSystem {
         }
     }
 
-    public void lookupStudent(String studentId) throws Exception{
-        Student student = students.get(studentId);
-        if (student != null) {
-            System.out.println(student);
-        } else {
+    public void lookupStudent(String studentId) {
+        try {
+            Student student = students.get(studentId);
+            if (student != null) {
+                System.out.println(student);
+            } else {
+                System.out.println("Student not found");
+            }
+        } catch (NoSuchElementException e) {
             System.out.println("Student not found");
         }
     }
@@ -69,14 +85,33 @@ public class SchoolManagementSystem {
             System.out.println(teacher);
         }
     }
-
-    public void lookupTeacher(String teacherId) throws Exception {
+/*
+    public void lookupTeacher(String teacherId) {
+        try {
+            Teacher teacher = teachers.get(teacherId);
+            if (teacher != null) {
+                System.out.println(teacher);
+            } else {
+                System.out.println("Teacher not found");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Teacher not found");
+        }
+    }
+*/
+    public Teacher lookupTeacher(String teacherId) {
+     try {
         Teacher teacher = teachers.get(teacherId);
         if (teacher != null) {
             System.out.println(teacher);
         } else {
             System.out.println("Teacher not found");
         }
+        return teacher;
+        } catch (NoSuchElementException e) {
+            System.out.println("Teacher not found");
+            return null;
+    }
     }
 
     public void showProfit() {

@@ -40,26 +40,26 @@ class SchoolManagementSystemTest {
     }
 
     @Test
-    void enrollStudent_validStudentIdAndCourseId_studentEnrolledInCourse() throws Exception {
+    void enrollStudent_validStudentIdAndCourseId_studentEnrolledInCourse() {
         sms.enrollStudent("S001", "C001");
         assertEquals(0.0, course.getMoneyEarned(), 0.01);
     }
 
     @Test
-    void enrollStudent_invalidStudentId_printsInvalidStudentIdMessage() throws Exception {
+    void enrollStudent_invalidStudentId_printsInvalidStudentIdMessage() {
         String expectedOutput = "Invalid student ID or course ID\n";
         sms.enrollStudent("S002", "C001");
         assertEquals(expectedOutput, outputStream.toString());
     }
 
     @Test
-    void assignTeacher_validTeacherIdAndCourseId_teacherAssignedToCourse() throws Exception {
+    void assignTeacher_validTeacherIdAndCourseId_teacherAssignedToCourse() {
         sms.assignTeacher("T001", "C001");
         assertNotEquals(teacher, course.getTeacher());
     }
 
     @Test
-    void assignTeacher_invalidTeacherId_printsInvalidTeacherIdMessage() throws Exception {
+    void assignTeacher_invalidTeacherId_printsInvalidTeacherIdMessage() {
         String expectedOutput = "Invalid teacher ID or course ID\n";
         sms.assignTeacher("T002", "C001");
         assertEquals(expectedOutput, outputStream.toString());
@@ -68,17 +68,17 @@ class SchoolManagementSystemTest {
     @Test
     void showCourses_printsAllCourses() {
         sms.showCourses();
-        assertFalse(System.out.toString().contains(course.toString()));
+        assertTrue(outputStream.toString().contains(course.toString()));
     }
 
     @Test
-    void lookupCourse_validCourseId_printsCourseDetails() throws Exception {
+    void lookupCourse_validCourseId_printsCourseDetails() {
         sms.lookupCourse("C001");
-        assertFalse(System.out.toString().contains(course.toString()));
+        assertTrue(outputStream.toString().contains(course.toString()));
     }
 
     @Test
-    void lookupCourse_invalidCourseId_printsCourseNotFoundMessage() throws Exception {
+    void lookupCourse_invalidCourseId_printsCourseNotFoundMessage() {
         String expectedOutput = "Course not found\n";
         sms.lookupCourse("C002");
         assertEquals(expectedOutput, outputStream.toString());
@@ -87,17 +87,17 @@ class SchoolManagementSystemTest {
     @Test
     void showStudents_printsAllStudents() {
         sms.showStudents();
-        assertFalse(System.out.toString().contains(student.toString()));
+        assertTrue(outputStream.toString().contains(student.toString()));
     }
 
     @Test
-    void lookupStudent_validStudentId_printsStudentDetails() throws Exception {
+    void lookupStudent_validStudentId_printsStudentDetails() {
         sms.lookupStudent("S001");
         assertFalse(System.out.toString().contains(student.toString()));
     }
 
     @Test
-    void lookupStudent_invalidStudentId_printsStudentNotFoundMessage() throws Exception {
+    void lookupStudent_invalidStudentId_printsStudentNotFoundMessage() {
         String expectedOutput = "Student not found\n";
         sms.lookupStudent("S002");
         assertEquals(expectedOutput, outputStream.toString());
@@ -106,24 +106,24 @@ class SchoolManagementSystemTest {
     @Test
     void showTeachers_printsAllTeachers() {
         sms.showTeachers();
-        assertFalse(System.out.toString().contains(teacher.toString()));
+        assertTrue(outputStream.toString().contains(teacher.toString()));
     }
 
     @Test
-    void lookupTeacher_validTeacherId_printsTeacherDetails() throws Exception {
+    void lookupTeacher_validTeacherId_printsTeacherDetails() {
         sms.lookupTeacher("T001");
         assertFalse(System.out.toString().contains(teacher.toString()));
     }
 
     @Test
-    void lookupTeacher_invalidTeacherId_printsTeacherNotFoundMessage() throws Exception {
+    void lookupTeacher_invalidTeacherId_printsTeacherNotFoundMessage(){
         String expectedOutput = "Teacher not found\n";
         sms.lookupTeacher("T002");
         assertEquals(expectedOutput, outputStream.toString());
     }
 
     @Test
-    void showProfit_printsTotalProfit() throws Exception {
+    void showProfit_printsTotalProfit() {
         sms.enrollStudent("S001", "C001");
         sms.showProfit();
         assertFalse(System.out.toString().contains("Profit: 0.0"));
